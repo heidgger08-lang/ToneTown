@@ -2,10 +2,10 @@
 
 Tone Town é um jogo cozy de simulação e gestão de uma loja de instrumentos musicais, inspirado em jogos como Stardew Valley.
 
-Ambientado entre as décadas de 1960 e 1970, o jogador administra uma loja de guitarras em uma pequena cidade com forte identidade musical, atendendo clientes, negociando instrumentos e construindo sua reputação ao longo do tempo.
+Ambientado entre as décadas de 1970 e 1980, o jogador administra uma loja de guitarras em uma pequena cidade com forte identidade musical, atendendo clientes, negociando instrumentos e construindo sua reputação ao longo do tempo.
 
 ## Tecnologias:
-Unity 6
+Unity
 C#
 Git
 GitHub.
