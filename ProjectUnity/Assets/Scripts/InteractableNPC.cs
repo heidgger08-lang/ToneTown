@@ -3,54 +3,52 @@ using UnityEngine;
 // Controla a interação entre o jogador e o NPC.
 public class InteractableNPC : MonoBehaviour
 {
-    // Guarda se o jogador está próximo.
-    private bool playerInRange = false;
+    // Referência ao controlador do NPC.
+    private NPCController npcController;
+
+    // Referência à UI de diálogo.
+    private DialogueUI dialogueUI;
+
+    // Referência ao sistema da área de atendimento do jogador.
+    private PlayerServiceArea playerServiceArea;
+
+    private void Start()
+    {
+        // Busca o controlador do NPC.
+        npcController = GetComponent<NPCController>();
+
+        // Busca a UI de diálogo na cena.
+        dialogueUI = FindObjectOfType<DialogueUI>();
+
+        // Busca o Player e seu script de atendimento.
+        playerServiceArea =
+            FindObjectOfType<PlayerServiceArea>();
+    }
 
     private void Update()
     {
-        // Só permite interação quando o jogador estiver perto.
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        // Só permite interação se:
+        // - NPC estiver esperando atendimento
+        // - Jogador estiver atrás do balcão
+        // - Nenhum diálogo estiver aberto
+        if (
+            npcController.IsWaitingForService() &&
+            playerServiceArea.isInServiceArea &&
+            !dialogueUI.IsDialogueOpen() &&
+            Input.GetKeyDown(KeyCode.E)
+        )
         {
             Interact();
         }
     }
 
-    // Detecta quando o jogador entra na área de interação.
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-
-            Debug.Log("Pressione E para interagir.");
-        }
-    }
-
-    // Detecta quando o jogador sai da área.
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
-    }
-
-    // O que acontece ao interagir.
+    // Abre o diálogo do NPC.
     private void Interact()
     {
-        Debug.Log("Cliente atendido!");
-
-        // Procura o NPCController no mesmo objeto.
-        NPCController npcController = GetComponent<NPCController>();
-
-        if (npcController != null)
-        {
-            Debug.Log("NPCController encontrado!");
-            npcController.FinishService();
-        }
-        else
-        {
-            Debug.Log("NPCController NÃO encontrado!");
-        }
+        dialogueUI.OpenDialogue(
+            npcController.GetNPCName(),
+            npcController.GetDialogues(),
+            npcController
+        );
     }
 }

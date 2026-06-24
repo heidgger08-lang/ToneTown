@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Controla o comportamento do cliente dentro da loja.
 public class NPCController : MonoBehaviour
 {
     // Estados possíveis do NPC.
@@ -10,13 +11,13 @@ public class NPCController : MonoBehaviour
         Leaving
     }
 
-    // Estado atual do NPC.
+    // Estado atual.
     private NPCState currentState;
 
-    // Ponto onde o NPC será atendido.
+    // Ponto onde o NPC espera atendimento.
     [SerializeField] private Transform counterPoint;
 
-    // Ponto da porta por onde ele sai.
+    // Ponto da porta.
     [SerializeField] private Transform doorPoint;
 
     // Velocidade de movimentação.
@@ -25,9 +26,16 @@ public class NPCController : MonoBehaviour
     // Distância mínima para considerar que chegou.
     [SerializeField] private float stoppingDistance = 0.1f;
 
+    // Nome do NPC.
+    [Header("Dados do NPC")]
+    [SerializeField] private string npcName;
+
+    // Lista de falas.
+    [SerializeField] private string[] dialogues;
+
     private void Start()
     {
-        // Quando o NPC nasce ele começa indo para o balcão.
+        // Ao nascer, vai para o balcão.
         currentState = NPCState.WalkingToCounter;
     }
 
@@ -40,7 +48,6 @@ public class NPCController : MonoBehaviour
                 break;
 
             case NPCState.WaitingForService:
-                // Fica parado esperando ser atendido.
                 break;
 
             case NPCState.Leaving:
@@ -49,7 +56,7 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    // O NPC vai até o balcão.
+    // Move o NPC até o balcão.
     private void MoveToCounter()
     {
         transform.position = Vector2.MoveTowards(
@@ -58,8 +65,9 @@ public class NPCController : MonoBehaviour
             moveSpeed * Time.deltaTime
         );
 
-        // Verifica se chegou.
-        if (Vector2.Distance(transform.position, counterPoint.position) <= stoppingDistance)
+        if (Vector2.Distance(
+            transform.position,
+            counterPoint.position) <= stoppingDistance)
         {
             currentState = NPCState.WaitingForService;
 
@@ -67,7 +75,7 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    // O NPC vai até a porta.
+    // Move o NPC até a porta.
     private void MoveToDoor()
     {
         transform.position = Vector2.MoveTowards(
@@ -76,18 +84,37 @@ public class NPCController : MonoBehaviour
             moveSpeed * Time.deltaTime
         );
 
-        // Quando chegar na porta ele some.
-        if (Vector2.Distance(transform.position, doorPoint.position) <= stoppingDistance)
+        if (Vector2.Distance(
+            transform.position,
+            doorPoint.position) <= stoppingDistance)
         {
             Destroy(gameObject);
         }
     }
 
-    // Função que será chamada quando o jogador terminar o atendimento.
+    // Chamado quando o atendimento termina.
     public void FinishService()
     {
-        currentState = NPCState.Leaving;
-
         Debug.Log("Cliente atendido.");
+
+        currentState = NPCState.Leaving;
+    }
+
+    // Retorna o nome do NPC.
+    public string GetNPCName()
+    {
+        return npcName;
+    }
+
+    // Retorna todas as falas.
+    public string[] GetDialogues()
+    {
+        return dialogues;
+    }
+
+    // Verifica se o NPC está esperando atendimento.
+    public bool IsWaitingForService()
+    {
+        return currentState == NPCState.WaitingForService;
     }
 }
