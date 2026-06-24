@@ -9,20 +9,22 @@ public class InteractableNPC : MonoBehaviour
     // Referência à UI de diálogo.
     private DialogueUI dialogueUI;
 
-    // Referência ao sistema da área de atendimento do jogador.
+    // Referência à UI de recomendação.
+    private RecommendationUI recommendationUI;
+
+    // Referência à área de atendimento.
     private PlayerServiceArea playerServiceArea;
 
     private void Start()
     {
-        // Busca o controlador do NPC.
+        // Busca os componentes necessários.
         npcController = GetComponent<NPCController>();
 
-        // Busca a UI de diálogo na cena.
         dialogueUI = FindObjectOfType<DialogueUI>();
 
-        // Busca o Player e seu script de atendimento.
-        playerServiceArea =
-            FindObjectOfType<PlayerServiceArea>();
+        recommendationUI = FindObjectOfType<RecommendationUI>();
+
+        playerServiceArea = FindObjectOfType<PlayerServiceArea>();
     }
 
     private void Update()
@@ -31,10 +33,12 @@ public class InteractableNPC : MonoBehaviour
         // - NPC estiver esperando atendimento
         // - Jogador estiver atrás do balcão
         // - Nenhum diálogo estiver aberto
+        // - Nenhuma tela de recomendação estiver aberta
         if (
             npcController.IsWaitingForService() &&
             playerServiceArea.isInServiceArea &&
             !dialogueUI.IsDialogueOpen() &&
+            !recommendationUI.IsOpen() &&
             Input.GetKeyDown(KeyCode.E)
         )
         {
@@ -42,7 +46,7 @@ public class InteractableNPC : MonoBehaviour
         }
     }
 
-    // Abre o diálogo do NPC.
+    // Abre o diálogo.
     private void Interact()
     {
         dialogueUI.OpenDialogue(

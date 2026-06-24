@@ -96,7 +96,12 @@ public class DialogueUI : MonoBehaviour
         // Faz o cliente ir embora.
         if (currentNPC != null)
         {
-            currentNPC.FinishService();
+            RecommendationUI recommendationUI =
+                FindObjectOfType<RecommendationUI>();
+
+            recommendationUI.OpenRecommendation(
+                currentNPC
+            );
         }
     }
 

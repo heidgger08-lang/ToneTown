@@ -107,8 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974227e366f2c51489e9ce76bb5048b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCController
-  counterPoint: {fileID: 0}
-  doorPoint: {fileID: 0}
   moveSpeed: 3
   stoppingDistance: 0.1
   npcName: Dam
@@ -116,7 +114,7 @@ MonoBehaviour:
   - "Ol\xE1!"
   - "Estou montando uma banda, preciso de algo para chocar quem est\xE1 vendo!"
   - Consegue me ajudar??
-  desiredInstrument: Guitarra
+  desiredInstrument: Les Paul
 --- !u!50 &4446685629141630362
 Rigidbody2D:
   serializedVersion: 5
