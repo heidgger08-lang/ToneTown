@@ -43,4 +43,4 @@ Documentação/ → Documentação técnica
 
 ## Integrantes:
 Enrico Heidgger
-Nicolas Emanuel
+e Nicolas Emanuel
