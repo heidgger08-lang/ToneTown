@@ -14,11 +14,9 @@ public class NPCController : MonoBehaviour
     // Estado atual.
     private NPCState currentState;
 
-    // Ponto onde o NPC espera atendimento.
-    [SerializeField] private Transform counterPoint;
+    private Transform counterPoint;
 
-    // Ponto da porta.
-    [SerializeField] private Transform doorPoint;
+    private Transform doorPoint;
 
     // Velocidade de movimentação.
     [SerializeField] private float moveSpeed = 2f;
@@ -32,6 +30,9 @@ public class NPCController : MonoBehaviour
 
     // Lista de falas.
     [SerializeField] private string[] dialogues;
+
+    // Instrumento que o cliente deseja.
+    [SerializeField] private string desiredInstrument;
 
     private void Start()
     {
@@ -106,6 +107,12 @@ public class NPCController : MonoBehaviour
         return npcName;
     }
 
+    // Retorna o instrumento desejado.
+    public string GetDesiredInstrument()
+    {
+        return desiredInstrument;
+    }
+
     // Retorna todas as falas.
     public string[] GetDialogues()
     {
@@ -116,5 +123,14 @@ public class NPCController : MonoBehaviour
     public bool IsWaitingForService()
     {
         return currentState == NPCState.WaitingForService;
+    }
+
+    // Recebe os pontos da loja.
+    public void SetPoints(
+        Transform counter,
+        Transform door)
+    {
+        counterPoint = counter;
+        doorPoint = door;
     }
 }
