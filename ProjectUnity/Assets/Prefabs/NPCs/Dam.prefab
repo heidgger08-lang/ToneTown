@@ -109,12 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCController
   moveSpeed: 3
   stoppingDistance: 0.1
-  npcName: Dam
-  dialogues:
-  - "Ol\xE1!"
-  - "Estou montando uma banda, preciso de algo para chocar quem est\xE1 vendo!"
-  - Consegue me ajudar??
-  desiredInstrument: Les Paul
+  customerData: {fileID: 11400000, guid: 49964b5e8f61d0848adf1bffd386ebe4, type: 2}
 --- !u!50 &4446685629141630362
 Rigidbody2D:
   serializedVersion: 5

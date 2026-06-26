@@ -1,78 +1,77 @@
 using TMPro;
 using UnityEngine;
 
-// Controla a janela de diálogo.
+// Controla a interface de diálogo.
 public class DialogueUI : MonoBehaviour
 {
-    // Painel principal da UI.
+    [Header("Painel")]
     [SerializeField] private GameObject dialoguePanel;
 
-    // Texto do nome do NPC.
+    [Header("Textos")]
     [SerializeField] private TMP_Text npcNameText;
 
-    // Texto da fala atual.
     [SerializeField] private TMP_Text dialogueText;
 
-    // Guarda todas as falas do NPC atual.
+    [Header("Referências")]
+    [SerializeField] private RecommendationUI recommendationUI;
+
+    private NPCController currentNPC;
+
     private string[] currentDialogues;
 
-    // Índice da fala atual.
     private int currentDialogueIndex;
 
-    // Indica se existe um diálogo aberto.
     private bool isDialogueOpen;
 
-    // Referência ao NPC que está sendo atendido.
-    private NPCController currentNPC;
+    // Impede que o mesmo E abra outro diálogo.
+    public bool JustClosedDialogue { get; private set; }
 
     private void Update()
     {
-        // Se não existir diálogo aberto, não faz nada.
         if (!isDialogueOpen)
             return;
 
-        // Avança para a próxima fala ao apertar E.
         if (Input.GetKeyDown(KeyCode.E))
         {
             NextDialogue();
         }
     }
 
-    // Abre uma conversa.
+    private void LateUpdate()
+    {
+        // A flag dura apenas um frame.
+        JustClosedDialogue = false;
+    }
+
+    // Abre um diálogo.
     public void OpenDialogue(
         string npcName,
         string[] dialogues,
         NPCController npc)
     {
-        // Guarda referência do NPC.
+        if (isDialogueOpen)
+            return;
+
         currentNPC = npc;
 
-        // Guarda todas as falas.
         currentDialogues = dialogues;
 
-        // Começa na primeira fala.
         currentDialogueIndex = 0;
 
-        // Define o nome na UI.
         npcNameText.text = npcName;
 
-        // Define a primeira fala.
-        dialogueText.text = currentDialogues[0];
+        dialogueText.text = currentDialogues[currentDialogueIndex];
 
-        // Mostra o painel.
         dialoguePanel.SetActive(true);
 
-        // Marca que o diálogo está aberto.
         isDialogueOpen = true;
     }
 
-    // Passa para a próxima fala.
+    // Próxima fala.
     private void NextDialogue()
     {
-        // Vai para a próxima posição.
         currentDialogueIndex++;
 
-        // Verifica se ainda existem falas.
         if (currentDialogueIndex < currentDialogues.Length)
         {
             dialogueText.text =
@@ -87,26 +86,20 @@ public class DialogueUI : MonoBehaviour
     // Fecha o diálogo.
     private void CloseDialogue()
     {
-        // Esconde a UI.
         dialoguePanel.SetActive(false);
 
-        // Marca que não existe diálogo aberto.
         isDialogueOpen = false;
 
-        // Faz o cliente ir embora.
+        // Evita reabrir o diálogo no mesmo frame.
+        JustClosedDialogue = true;
+
         if (currentNPC != null)
         {
-            RecommendationUI recommendationUI =
-                FindObjectOfType<RecommendationUI>();
-
-            recommendationUI.OpenRecommendation(
-                currentNPC
-            );
+            recommendationUI.OpenRecommendation(currentNPC);
         }
     }
 
-    // Permite que outros scripts verifiquem
-    // se um diálogo está aberto.
+    // Retorna se existe diálogo aberto.
     public bool IsDialogueOpen()
     {
         return isDialogueOpen;

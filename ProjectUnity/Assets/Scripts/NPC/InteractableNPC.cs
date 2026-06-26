@@ -17,23 +17,22 @@ public class InteractableNPC : MonoBehaviour
 
     private void Start()
     {
-        // Busca os componentes necessários.
         npcController = GetComponent<NPCController>();
 
-        dialogueUI = FindObjectOfType<DialogueUI>();
+        dialogueUI = FindFirstObjectByType<DialogueUI>();
 
-        recommendationUI = FindObjectOfType<RecommendationUI>();
+        recommendationUI = FindFirstObjectByType<RecommendationUI>();
 
-        playerServiceArea = FindObjectOfType<PlayerServiceArea>();
+        playerServiceArea = FindFirstObjectByType<PlayerServiceArea>();
     }
 
     private void Update()
     {
-        // Só permite interação se:
-        // - NPC estiver esperando atendimento
-        // - Jogador estiver atrás do balcão
-        // - Nenhum diálogo estiver aberto
-        // - Nenhuma tela de recomendação estiver aberta
+        // Impede que o mesmo E que fecha o diálogo
+        // abra outro imediatamente.
+        if (dialogueUI.JustClosedDialogue)
+            return;
+
         if (
             npcController.IsWaitingForService() &&
             playerServiceArea.isInServiceArea &&

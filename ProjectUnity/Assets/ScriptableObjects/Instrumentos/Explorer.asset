@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: Explorer
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: 
+  instrumentName: Explorer
   icon: {fileID: 0}
-  description: 
+  description: "Um cl\xE1ssico do hard rock, com timbre encorpado e visual marcante."
   mainGenre: 0
-  quality: 5
-  difficulty: 5
-  popularity: 5
+  quality: 9
+  difficulty: 7
+  popularity: 7

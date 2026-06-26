@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: SG
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: 
+  instrumentName: SG
   icon: {fileID: 0}
-  description: 
+  description: "Leve, r\xE1pida e agressiva. Muito usada no rock cl\xE1ssico e hard
+    rock."
   mainGenre: 0
-  quality: 5
+  quality: 9
   difficulty: 5
-  popularity: 5
+  popularity: 9

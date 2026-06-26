@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: Dean
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: 
+  instrumentName: DimeBag
   icon: {fileID: 0}
-  description: 
-  mainGenre: 0
-  quality: 5
-  difficulty: 5
-  popularity: 5
+  description: "Guitarra agressiva, muito utilizada por m\xFAsicos de metal e hard
+    rock."
+  mainGenre: 1
+  quality: 8
+  difficulty: 7
+  popularity: 6

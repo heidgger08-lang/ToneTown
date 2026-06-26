@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: Telecaster
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: 
+  instrumentName: Telecaster
   icon: {fileID: 0}
-  description: 
-  mainGenre: 0
-  quality: 5
-  difficulty: 5
-  popularity: 5
+  description: "Som limpo e definido, excelente para country, blues e rock cl\xE1ssico."
+  mainGenre: 4
+  quality: 9
+  difficulty: 4
+  popularity: 8

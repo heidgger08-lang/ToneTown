@@ -7,7 +7,7 @@ public class CustomerData : ScriptableObject
     [Header("Informações")]
     public string customerName;
 
-    [TextArea]
+    [TextArea(3, 5)]
     public List<string> dialogues;
 
     [Header("Preferências")]

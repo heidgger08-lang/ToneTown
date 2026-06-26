@@ -109,11 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCController
   moveSpeed: 3
   stoppingDistance: 0.1
-  npcName: Humble
-  dialogues:
-  - "Ol\xE1."
-  - Estou procurando algo simples, mas que eu consiga tocar de tudo.
-  desiredInstrument: Strato
+  customerData: {fileID: 11400000, guid: 8af1fb4466cf3b24e852ed051979a29c, type: 2}
 --- !u!50 &2506211544970322055
 Rigidbody2D:
   serializedVersion: 5

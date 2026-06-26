@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: Stratocaster
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: 
+  instrumentName: Stratocaster
   icon: {fileID: 0}
-  description: 
-  mainGenre: 0
-  quality: 5
-  difficulty: 5
-  popularity: 5
+  description: "Extremamente vers\xE1til. Vai do blues ao rock moderno com facilidade."
+  mainGenre: 2
+  quality: 10
+  difficulty: 4
+  popularity: 10

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: Jazzmaster
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: 
+  instrumentName: Jazzmaster
   icon: {fileID: 0}
-  description: 
-  mainGenre: 0
-  quality: 5
-  difficulty: 5
-  popularity: 5
+  description: "Extremamente vers\xE1til, muito presente no indie, jazz e rock alternativo."
+  mainGenre: 3
+  quality: 9
+  difficulty: 6
+  popularity: 7

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: Jaguar
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: 
+  instrumentName: Jaguar
   icon: {fileID: 0}
-  description: 
-  mainGenre: 0
-  quality: 5
+  description: Som brilhante e cheio de personalidade, muito usada no indie e surf
+    rock.
+  mainGenre: 6
+  quality: 8
   difficulty: 5
-  popularity: 5
+  popularity: 6

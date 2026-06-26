@@ -3,17 +3,17 @@ using UnityEngine.EventSystems;
 
 public class InstrumentChoice : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private string instrumentName;
+    [Header("Instrumento")]
+    [SerializeField] private InstrumentData instrumentData;
 
-    private RecommendationUI recommendationUI;
-
-    private void Start()
-    {
-        recommendationUI = FindObjectOfType<RecommendationUI>();
-    }
+    [Header("Referências")]
+    [SerializeField] private RecommendationUI recommendationUI;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        recommendationUI.SelectInstrument(instrumentName);
+        if (recommendationUI == null)
+            return;
+
+        recommendationUI.SelectInstrument(instrumentData);
     }
 }

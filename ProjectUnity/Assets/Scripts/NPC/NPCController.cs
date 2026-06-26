@@ -3,7 +3,6 @@ using UnityEngine;
 // Controla o comportamento do cliente dentro da loja.
 public class NPCController : MonoBehaviour
 {
-    // Estados possíveis do NPC.
     private enum NPCState
     {
         WalkingToCounter,
@@ -11,32 +10,24 @@ public class NPCController : MonoBehaviour
         Leaving
     }
 
-    // Estado atual.
+    [Header("Movimentação")]
+    [SerializeField] private float moveSpeed = 2f;
+
+    [SerializeField] private float stoppingDistance = 0.1f;
+
+    [Header("Dados")]
+    [SerializeField] private CustomerData customerData;
+
     private NPCState currentState;
 
     private Transform counterPoint;
-
     private Transform doorPoint;
 
-    // Velocidade de movimentação.
-    [SerializeField] private float moveSpeed = 2f;
-
-    // Distância mínima para considerar que chegou.
-    [SerializeField] private float stoppingDistance = 0.1f;
-
-    // Nome do NPC.
-    [Header("Dados do NPC")]
-    [SerializeField] private string npcName;
-
-    // Lista de falas.
-    [SerializeField] private string[] dialogues;
-
-    // Instrumento que o cliente deseja.
-    [SerializeField] private string desiredInstrument;
+    // Impede que o cliente seja atendido duas vezes.
+    private bool wasServed = false;
 
     private void Start()
     {
-        // Ao nascer, vai para o balcão.
         currentState = NPCState.WalkingToCounter;
     }
 
@@ -57,33 +48,27 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    // Move o NPC até o balcão.
     private void MoveToCounter()
     {
         transform.position = Vector2.MoveTowards(
             transform.position,
             counterPoint.position,
-            moveSpeed * Time.deltaTime
-        );
+            moveSpeed * Time.deltaTime);
 
         if (Vector2.Distance(
             transform.position,
             counterPoint.position) <= stoppingDistance)
         {
             currentState = NPCState.WaitingForService;
-
-            Debug.Log("Cliente aguardando atendimento.");
         }
     }
 
-    // Move o NPC até a porta.
     private void MoveToDoor()
     {
         transform.position = Vector2.MoveTowards(
             transform.position,
             doorPoint.position,
-            moveSpeed * Time.deltaTime
-        );
+            moveSpeed * Time.deltaTime);
 
         if (Vector2.Distance(
             transform.position,
@@ -93,44 +78,51 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    // Chamado quando o atendimento termina.
     public void FinishService()
     {
-        Debug.Log("Cliente atendido.");
+        Debug.Log("FINISH SERVICE");
+        if (currentState == NPCState.Leaving)
+            return;
 
         currentState = NPCState.Leaving;
+
+        // Nunca mais permite interação com esse NPC.
+        InteractableNPC interactable = GetComponent<InteractableNPC>();
+
+        if (interactable != null)
+            interactable.enabled = false;
+
+        Debug.Log($"{customerData.customerName} foi atendido.");
     }
 
-    // Retorna o nome do NPC.
-    public string GetNPCName()
+    public bool WasServed()
     {
-        return npcName;
+        return wasServed;
     }
 
-    // Retorna o instrumento desejado.
-    public string GetDesiredInstrument()
-    {
-        return desiredInstrument;
-    }
-
-    // Retorna todas as falas.
-    public string[] GetDialogues()
-    {
-        return dialogues;
-    }
-
-    // Verifica se o NPC está esperando atendimento.
     public bool IsWaitingForService()
     {
         return currentState == NPCState.WaitingForService;
     }
 
-    // Recebe os pontos da loja.
-    public void SetPoints(
-        Transform counter,
-        Transform door)
+    public void SetPoints(Transform counter, Transform door)
     {
         counterPoint = counter;
         doorPoint = door;
+    }
+
+    public string GetNPCName()
+    {
+        return customerData.customerName;
+    }
+
+    public string[] GetDialogues()
+    {
+        return customerData.dialogues.ToArray();
+    }
+
+    public InstrumentData GetDesiredInstrument()
+    {
+        return customerData.desiredInstrument;
     }
 }
