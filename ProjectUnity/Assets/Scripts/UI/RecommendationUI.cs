@@ -9,6 +9,7 @@ public class RecommendationUI : MonoBehaviour
 
     private bool isOpen;
 
+    // Abre o painel de recomendação.
     public void OpenRecommendation(NPCController npc)
     {
         currentNPC = npc;
@@ -18,6 +19,7 @@ public class RecommendationUI : MonoBehaviour
         isOpen = true;
     }
 
+    // Fecha o painel.
     public void CloseRecommendation()
     {
         recommendationPanel.SetActive(false);
@@ -25,11 +27,13 @@ public class RecommendationUI : MonoBehaviour
         isOpen = false;
     }
 
+    // Retorna se o painel está aberto.
     public bool IsOpen()
     {
         return isOpen;
     }
 
+    // Jogador escolheu um instrumento.
     public void SelectInstrument(InstrumentData selectedInstrument)
     {
         if (currentNPC == null)
@@ -38,23 +42,36 @@ public class RecommendationUI : MonoBehaviour
         InstrumentData desiredInstrument =
             currentNPC.GetDesiredInstrument();
 
+        // Acertou a recomendação.
         if (selectedInstrument == desiredInstrument)
         {
-            EconomyManager.Instance.AddMoney(
-                selectedInstrument.price
+            EconomyManager.Instance.AddMoney(selectedInstrument.price);
+
+            NotificationManager.Instance.Show(
+                $"+R$ {selectedInstrument.price:N0}",
+                Color.green
             );
 
             Debug.Log("Venda realizada!");
         }
+        // Errou a recomendação.
         else
         {
+            NotificationManager.Instance.Show(
+                "Venda recusada",
+                Color.red
+            );
+
             Debug.Log("Cliente saiu sem comprar.");
         }
 
+        // Fecha o painel.
         CloseRecommendation();
 
+        // Faz o cliente ir embora.
         currentNPC.FinishService();
 
+        // Limpa a referência.
         currentNPC = null;
     }
 }
