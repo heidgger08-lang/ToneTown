@@ -1,20 +1,17 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Instrument",
-menuName = "Tone Town/Instrument")]
+[CreateAssetMenu(fileName = "New Instrument", menuName = "Tone Town/Instrument")]
 public class InstrumentData : ScriptableObject
 {
     [Header("Informações")]
-
     public string instrumentName;
+
+    [TextArea(3, 5)]
+    public string description;
 
     public Sprite icon;
 
-    [TextArea]
-    public string description;
-
     [Header("Características")]
-
     public MusicGenre mainGenre;
 
     [Range(1, 10)]
@@ -25,4 +22,7 @@ public class InstrumentData : ScriptableObject
 
     [Range(1, 10)]
     public int popularity = 5;
+
+    [Header("Economia")]
+    public int price = 1000;
 }

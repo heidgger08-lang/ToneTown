@@ -40,6 +40,10 @@ public class RecommendationUI : MonoBehaviour
 
         if (selectedInstrument == desiredInstrument)
         {
+            EconomyManager.Instance.AddMoney(
+                selectedInstrument.price
+            );
+
             Debug.Log("Venda realizada!");
         }
         else
