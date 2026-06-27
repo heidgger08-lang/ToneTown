@@ -13,10 +13,54 @@ GitHub.
 ## Estado Atual:
 Em desenvolvimento.
 
-## Funcionalidades implementadas:
-Movimentação do jogador
-Câmera seguindo o jogador
-Colisão básica.
+## Funcionalidades implementadas
+
+### Jogador
+- Movimentação.
+- Colisão.
+- Câmera seguindo o jogador.
+- Área de atendimento.
+
+### Loja
+- Sistema de entrada de clientes.
+- Fila de atendimento.
+- Cliente vai até o balcão.
+- Cliente aguarda atendimento.
+- Cliente sai da loja após o atendimento.
+
+### Diálogo
+- Sistema de diálogo com múltiplas falas.
+- Interação por tecla.
+- Correção de conflitos de input.
+
+### Instrumentos
+- Sistema de ScriptableObjects para instrumentos.
+- Características individuais.
+- Preço individual.
+- Gênero musical.
+- Qualidade.
+- Popularidade.
+
+### Clientes
+- Sistema de ScriptableObjects para clientes.
+- Nome.
+- Diálogos.
+- Instrumento desejado.
+
+### Atendimento
+- Sistema de recomendação de instrumentos.
+- Verificação de recomendação correta/incorreta.
+- Cliente finaliza o atendimento e deixa a loja.
+
+### Economia
+- EconomyManager.
+- Sistema de dinheiro.
+- Venda adiciona dinheiro automaticamente.
+- HUD de dinheiro.
+
+### Interface
+- HUD do dinheiro.
+- Sistema de notificações (em desenvolvimento).
 
 ## Objetivos da Demo:
 Sistema de interação
