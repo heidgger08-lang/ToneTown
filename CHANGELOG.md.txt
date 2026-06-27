@@ -1,14 +1,14 @@
-Changelog
+# Changelog
 
-All notable changes to the Tone Town project will be documented in this file.
+# All notable changes to the Tone Town project will be documented in this file.
 
-v0.0.1 - Project Foundation
-Added
+# v0.0.1 - Project Foundation
+## Added
 Player movement.
 Camera following the player.
 Basic collision system.
-v0.1.0 - Store Gameplay (In Progress)
-Added
+# v0.1.0 - Store Gameplay (In Progress)
+## Added
 Dialogue box.
 Dialogue system.
 NPC spawning system.
@@ -20,5 +20,5 @@ Instrument ScriptableObjects.
 Economy system.
 Money HUD.
 Notification system.
-Fixed
+# Fixed
 Fixed a bug that caused the dialogue to reopen after finishing a customer interaction.
