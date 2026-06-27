@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95315c9b8901a414c83973fda473906a, type: 3}
   m_Name: Dam
   m_EditorClassIdentifier: Assembly-CSharp::CustomerData
-  customerName: 
-  dialogues: []
-  desiredInstrument: {fileID: 0}
+  customerName: Dam
+  dialogues:
+  - "Ol\xE1!"
+  - 'Estou montando uma banda e preciso de algo que seja bom para sons pesados! '
+  - Consegue me ajudar??
+  desiredInstrument: {fileID: 11400000, guid: e18866d3cb623774ebfde831a87fc127, type: 2}

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Telecaster
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
   instrumentName: Telecaster
-  icon: {fileID: 0}
   description: "Som limpo e definido, excelente para country, blues e rock cl\xE1ssico."
+  icon: {fileID: 0}
   mainGenre: 4
   quality: 9
   difficulty: 4
   popularity: 8
+  price: 2900

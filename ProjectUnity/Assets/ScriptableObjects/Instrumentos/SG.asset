@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: SG
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
   instrumentName: SG
-  icon: {fileID: 0}
   description: "Leve, r\xE1pida e agressiva. Muito usada no rock cl\xE1ssico e hard
     rock."
+  icon: {fileID: 0}
   mainGenre: 0
   quality: 9
   difficulty: 5
   popularity: 9
+  price: 5000

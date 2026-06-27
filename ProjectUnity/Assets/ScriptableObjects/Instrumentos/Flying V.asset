@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Flying V
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
   instrumentName: Flying V
-  icon: {fileID: 0}
   description: "\xCDcone do heavy metal. Ideal para sons pesados e solos r\xE1pidos."
+  icon: {fileID: 0}
   mainGenre: 1
   quality: 9
   difficulty: 8
   popularity: 8
+  price: 7000

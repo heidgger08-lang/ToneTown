@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Acustic
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
   instrumentName: "Viol\xE3o"
-  icon: {fileID: 0}
   description: "Um viol\xE3o ac\xFAstico vers\xE1til, perfeito para quem busca um
     som natural e acolhedor."
+  icon: {fileID: 0}
   mainGenre: 4
   quality: 7
   difficulty: 2
   popularity: 8
+  price: 800

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Jaguar
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
   instrumentName: Jaguar
-  icon: {fileID: 0}
   description: Som brilhante e cheio de personalidade, muito usada no indie e surf
     rock.
+  icon: {fileID: 0}
   mainGenre: 6
   quality: 8
   difficulty: 5
   popularity: 6
+  price: 2000
