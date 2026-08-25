@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
   instrumentName: Les Paul
   description: Timbre quente e poderoso. Uma das guitarras mais famosas do mundo.
-  icon: {fileID: -2441666715479542558, guid: 407e67c21049b554c95598107d2ed619, type: 3}
+  icon: {fileID: -2836335398978793527, guid: 5d770a33e763a124391ee9a9e533e7e3, type: 3}
   mainGenre: 0
   quality: 10
   difficulty: 6

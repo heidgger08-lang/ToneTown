@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
   instrumentName: Stratocaster
   description: "Extremamente vers\xE1til. Vai do blues ao rock moderno com facilidade."
-  icon: {fileID: 0}
+  icon: {fileID: 4854397496335690116, guid: 5d770a33e763a124391ee9a9e533e7e3, type: 3}
   mainGenre: 2
   quality: 10
   difficulty: 4

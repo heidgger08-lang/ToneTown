@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f52adb3cf3a4418898c4cd9549039, type: 3}
   m_Name: Acustic
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentData
-  instrumentName: "Viol\xE3o"
+  instrumentName: Acoustic
   description: "Um viol\xE3o ac\xFAstico vers\xE1til, perfeito para quem busca um
     som natural e acolhedor."
-  icon: {fileID: 0}
+  icon: {fileID: -3337038689812066966, guid: 5d770a33e763a124391ee9a9e533e7e3, type: 3}
   mainGenre: 4
   quality: 7
   difficulty: 2
