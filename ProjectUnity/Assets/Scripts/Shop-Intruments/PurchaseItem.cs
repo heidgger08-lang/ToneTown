@@ -45,7 +45,7 @@ public class PurchaseItem : MonoBehaviour
 
         if (priceText != null)
         {
-            priceText.text = "$" + instrumentData.price.ToString("N0");
+            priceText.text = $"R$ {instrumentData.purchasePrice:N0}";
         }
 
         if (instrumentImage != null)
@@ -84,7 +84,7 @@ public class PurchaseItem : MonoBehaviour
 
         // Tenta pagar pelo instrumento.
         bool purchaseSuccessful =
-            EconomyManager.Instance.SpendMoney(instrumentData.price);
+            EconomyManager.Instance.SpendMoney(instrumentData.purchasePrice);
 
         // Se não tiver dinheiro, não adiciona ao estoque.
         if (!purchaseSuccessful)

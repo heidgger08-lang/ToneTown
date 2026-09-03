@@ -19,4 +19,5 @@ MonoBehaviour:
   quality: 10
   difficulty: 4
   popularity: 10
-  price: 2300
+  purchasePrice: 1000
+  salePrice: 1300

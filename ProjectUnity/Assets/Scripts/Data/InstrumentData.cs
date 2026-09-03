@@ -24,5 +24,6 @@ public class InstrumentData : ScriptableObject
     public int popularity = 5;
 
     [Header("Economia")]
-    public int price = 1000;
+    public int purchasePrice = 1000;
+    public int salePrice = 1500;
 }

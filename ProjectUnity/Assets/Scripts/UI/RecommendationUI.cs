@@ -94,11 +94,14 @@ public class RecommendationUI : MonoBehaviour
 
             // Adiciona o dinheiro da venda.
             EconomyManager.Instance.AddMoney(
-                selectedInstrument.price
+                selectedInstrument.salePrice
             );
 
+            // Registra a venda no objetivo diário.
+            DailyObjectiveManager.Instance.RegisterSale();
+
             NotificationManager.Instance.Show(
-                $"+R$ {selectedInstrument.price:N0}",
+                $"+R$ {selectedInstrument.salePrice:N0}",
                 Color.green
             );
 
