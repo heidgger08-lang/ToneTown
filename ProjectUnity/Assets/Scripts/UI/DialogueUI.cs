@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-// Controla a interface de diálogo.
+// Controla a interface de diÃ¡logo.
 public class DialogueUI : MonoBehaviour
 {
     [Header("Painel")]
@@ -12,7 +12,12 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] private TMP_Text dialogueText;
 
-    [Header("Referências")]
+    [Header("Continuar DiÃ¡logo")]
+    [SerializeField] private GameObject continueText;
+
+    [SerializeField] private TMP_Text continueTextLabel;
+
+    [Header("ReferÃªncias")]
     [SerializeField] private RecommendationUI recommendationUI;
 
     private NPCController currentNPC;
@@ -23,7 +28,7 @@ public class DialogueUI : MonoBehaviour
 
     private bool isDialogueOpen;
 
-    // Impede que o mesmo E abra outro diálogo.
+    // Impede que o mesmo E abra outro diÃ¡logo.
     public bool JustClosedDialogue { get; private set; }
 
     private void Update()
@@ -39,11 +44,11 @@ public class DialogueUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        // A flag dura apenas um frame.
+       
         JustClosedDialogue = false;
     }
 
-    // Abre um diálogo.
+   
     public void OpenDialogue(
         string npcName,
         string[] dialogues,
@@ -64,10 +69,18 @@ public class DialogueUI : MonoBehaviour
 
         dialoguePanel.SetActive(true);
 
+        if (continueText != null)
+        {
+            continueText.SetActive(true);
+
+            if (continueTextLabel != null)
+                continueTextLabel.text = "E - Continuar";
+        }
+
         isDialogueOpen = true;
     }
 
-    // Próxima fala.
+    
     private void NextDialogue()
     {
         currentDialogueIndex++;
@@ -83,14 +96,18 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    // Fecha o diálogo.
+    
     private void CloseDialogue()
     {
         dialoguePanel.SetActive(false);
 
+        
+        if (continueText != null)
+            continueText.SetActive(false);
+
         isDialogueOpen = false;
 
-        // Evita reabrir o diálogo no mesmo frame.
+    
         JustClosedDialogue = true;
 
         if (currentNPC != null)
@@ -99,7 +116,7 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    // Retorna se existe diálogo aberto.
+   
     public bool IsDialogueOpen()
     {
         return isDialogueOpen;
