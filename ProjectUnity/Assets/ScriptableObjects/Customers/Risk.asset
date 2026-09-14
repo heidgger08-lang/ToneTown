@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CustomerData
   customerName: Risk
   dialogues:
-  - Oii!
+  - Oi!
   - "Quero algo que seja vers\xE1til e que eu possa tocaar em qualquer lugar."
   desiredInstrument: {fileID: 11400000, guid: 6dee9521276a9184f8ab500fe037c1ff, type: 2}

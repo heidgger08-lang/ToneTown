@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DailyObjectiveManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class DailyObjectiveManager : MonoBehaviour
     [SerializeField] private PlayerServiceArea playerServiceArea;
 
     [Header("Objetivo de Vendas")]
-    [SerializeField] private int salesGoal = 5;
+    [SerializeField] private int salesGoal = 3;
 
     [Header("Fade")]
     [SerializeField] private float delayBeforeFade = 1f;
@@ -23,6 +24,9 @@ public class DailyObjectiveManager : MonoBehaviour
     private bool firstCustomerObjective = true;
 
     private int salesCount = 0;
+    private int totalMoneyEarned = 0;
+    public static int FinalSalesCount;
+    public static int FinalMoneyEarned;
 
     private void Awake()
     {
@@ -31,7 +35,7 @@ public class DailyObjectiveManager : MonoBehaviour
 
     private void Start()
     {
-        objectiveText.text = "☐ Vá para trás do balcão";
+        objectiveText.text = "☐ Compre um instrumento no jornal";
     }
 
     private void Update()
@@ -44,7 +48,7 @@ public class DailyObjectiveManager : MonoBehaviour
         {
             counterObjectiveCompleted = true;
 
-            objectiveText.text = "✓ Vá para trás do balcão";
+            objectiveText.text = "✓ Compre um instrumento no jornal";
 
             StartCoroutine(ShowFirstCustomerObjective());
         }
@@ -62,9 +66,24 @@ public class DailyObjectiveManager : MonoBehaviour
     }
 
     // Chamado quando uma venda é realizada com sucesso.
-    public void RegisterSale()
+    public void RegisterSale(int saleAmount)
     {
         salesCount++;
+        totalMoneyEarned += saleAmount;
+
+        Debug.Log(
+            $"Venda registrada: {salesCount}/{salesGoal}"
+        );
+
+        // Meta atingida.
+        if (salesCount >= salesGoal)
+        {
+            UpdateSalesText();
+
+            StartCoroutine(EndGame());
+
+            return;
+        }
 
         // Primeira venda.
         if (firstCustomerObjective)
@@ -72,6 +91,7 @@ public class DailyObjectiveManager : MonoBehaviour
             firstCustomerObjective = false;
 
             StartCoroutine(ShowSalesObjective());
+
             return;
         }
 
@@ -96,9 +116,30 @@ public class DailyObjectiveManager : MonoBehaviour
             $"☐ Venda {salesGoal} instrumentos. ({salesCount}/{salesGoal})";
     }
 
+    private IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        FinalSalesCount = salesCount;
+        FinalMoneyEarned = totalMoneyEarned;
+
+        SceneManager.LoadScene("Credits");
+    }
+
+    public int GetSalesCount()
+    {
+        return salesCount;
+    }
+
+    public int GetTotalMoneyEarned()
+    {
+        return totalMoneyEarned;
+    }
+
     private IEnumerator FadeOut()
     {
         Color originalColor = objectiveText.color;
+
         float timer = 0f;
 
         while (timer < fadeDuration)
@@ -155,7 +196,6 @@ public class DailyObjectiveManager : MonoBehaviour
             yield return null;
         }
 
-        // Garante que o texto fique totalmente visível.
         objectiveText.color = new Color(
             color.r,
             color.g,

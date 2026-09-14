@@ -98,7 +98,9 @@ public class RecommendationUI : MonoBehaviour
             );
 
             // Registra a venda no objetivo diário.
-            DailyObjectiveManager.Instance.RegisterSale();
+            DailyObjectiveManager.Instance.RegisterSale(
+    selectedInstrument.salePrice
+);
 
             NotificationManager.Instance.Show(
                 $"+R$ {selectedInstrument.salePrice:N0}",
