@@ -10,10 +10,14 @@ public class NPCController : MonoBehaviour
         Leaving
     }
 
-    [Header("Movimentação")]
+    [Header("MovimentaÃ§Ã£o")]
     [SerializeField] private float moveSpeed = 2f;
 
     [SerializeField] private float stoppingDistance = 0.1f;
+
+    
+    [SerializeField] private Transform player;
+     private float playerStoppingDistance = 1.5f;
 
     [Header("Dados")]
     [SerializeField] private CustomerData customerData;
@@ -29,6 +33,17 @@ public class NPCController : MonoBehaviour
     private void Start()
     {
         currentState = NPCState.WalkingToCounter;
+
+        
+        if (player == null)
+        {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
+        }
     }
 
     private void Update()
@@ -50,6 +65,10 @@ public class NPCController : MonoBehaviour
 
     private void MoveToCounter()
     {
+      
+        if (PlayerEstaPerto())
+            return;
+
         transform.position = Vector2.MoveTowards(
             transform.position,
             counterPoint.position,
@@ -65,6 +84,10 @@ public class NPCController : MonoBehaviour
 
     private void MoveToDoor()
     {
+        
+        if (PlayerEstaPerto())
+            return;
+
         transform.position = Vector2.MoveTowards(
             transform.position,
             doorPoint.position,
@@ -78,15 +101,28 @@ public class NPCController : MonoBehaviour
         }
     }
 
+    private bool PlayerEstaPerto()
+    {
+        if (player == null)
+            return false;
+
+        float distancia = Vector2.Distance(
+            transform.position,
+            player.position);
+
+        return distancia <= playerStoppingDistance;
+    }
+
     public void FinishService()
     {
         Debug.Log("FINISH SERVICE");
+
         if (currentState == NPCState.Leaving)
             return;
 
         currentState = NPCState.Leaving;
 
-        // Nunca mais permite interação com esse NPC.
+       
         InteractableNPC interactable = GetComponent<InteractableNPC>();
 
         if (interactable != null)
