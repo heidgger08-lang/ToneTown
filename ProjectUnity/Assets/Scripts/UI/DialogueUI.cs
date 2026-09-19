@@ -36,7 +36,7 @@ public class DialogueUI : MonoBehaviour
         if (!isDialogueOpen)
             return;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
         {
             NextDialogue();
         }
@@ -74,7 +74,7 @@ public class DialogueUI : MonoBehaviour
             continueText.SetActive(true);
 
             if (continueTextLabel != null)
-                continueTextLabel.text = "E - Continuar";
+                continueTextLabel.text = "Botão esquerdo - Continuar";
         }
 
         isDialogueOpen = true;

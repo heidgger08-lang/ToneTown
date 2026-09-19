@@ -12,32 +12,43 @@ public class RecommendationUI : MonoBehaviour
     // Abre o painel de recomendação.
     public void OpenRecommendation(NPCController npc)
     {
+        if (npc == null)
+            return;
+
         currentNPC = npc;
 
         recommendationPanel.SetActive(true);
 
         isOpen = true;
+
+        Debug.Log("Painel de recomendação aberto.");
     }
 
-    // Fecha o painel.
+    // Fecha o painel sem finalizar o atendimento.
     public void CloseRecommendation()
     {
         recommendationPanel.SetActive(false);
 
         isOpen = false;
+
+        Debug.Log(">>> PAINEL FECHADO | isOpen = " + isOpen);
     }
 
     // Retorna se o painel está aberto.
     public bool IsOpen()
     {
-        return isOpen;
+        return recommendationPanel != null &&
+               recommendationPanel.activeSelf;
     }
 
     // Jogador escolheu um instrumento.
     public void SelectInstrument(InstrumentData selectedInstrument)
     {
         if (currentNPC == null)
+        {
+            Debug.LogWarning("Nenhum NPC está sendo atendido.");
             return;
+        }
 
         if (selectedInstrument == null)
         {
@@ -88,9 +99,7 @@ public class RecommendationUI : MonoBehaviour
                 );
 
             if (!removed)
-            {
                 return;
-            }
 
             // Adiciona o dinheiro da venda.
             EconomyManager.Instance.AddMoney(
@@ -99,8 +108,8 @@ public class RecommendationUI : MonoBehaviour
 
             // Registra a venda no objetivo diário.
             DailyObjectiveManager.Instance.RegisterSale(
-    selectedInstrument.salePrice
-);
+                selectedInstrument.salePrice
+            );
 
             NotificationManager.Instance.Show(
                 $"+R$ {selectedInstrument.salePrice:N0}",
@@ -114,10 +123,10 @@ public class RecommendationUI : MonoBehaviour
             // Fecha o painel.
             CloseRecommendation();
 
-            // Faz o cliente ir embora.
+            // Finaliza o atendimento e manda o cliente embora.
             currentNPC.FinishService();
 
-            // Limpa a referência.
+            // Agora sim não precisamos mais do NPC.
             currentNPC = null;
         }
         // Errou a recomendação.
@@ -133,7 +142,7 @@ public class RecommendationUI : MonoBehaviour
             // Fecha o painel.
             CloseRecommendation();
 
-            // Faz o cliente ir embora.
+            // Finaliza o atendimento.
             currentNPC.FinishService();
 
             // Limpa a referência.

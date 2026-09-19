@@ -28,26 +28,51 @@ public class InteractableNPC : MonoBehaviour
 
     private void Update()
     {
-        // Impede que o mesmo E que fecha o diálogo
-        // abra outro imediatamente.
-        if (dialogueUI.JustClosedDialogue)
-            return;
-
-        if (
-            npcController.IsWaitingForService() &&
-            playerServiceArea.isInServiceArea &&
-            !dialogueUI.IsDialogueOpen() &&
-            !recommendationUI.IsOpen() &&
-            Input.GetKeyDown(KeyCode.E)
-        )
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Interact();
+            Debug.Log(
+                $"E APERTADO | " +
+                $"Waiting={npcController.IsWaitingForService()} | " +
+                $"Area={playerServiceArea.isInServiceArea} | " +
+                $"Dialogue={dialogueUI.IsDialogueOpen()} | " +
+                $"Recommendation={recommendationUI.IsOpen()} | " +
+                $"WasServed={npcController.WasServed()}"
+            );
+
+            if (
+                npcController.IsWaitingForService() &&
+                playerServiceArea.isInServiceArea &&
+                !dialogueUI.IsDialogueOpen() &&
+                !recommendationUI.IsOpen()
+            )
+            {
+                Debug.Log(">>> ENTROU NO IF DO INTERACTABLENPC");
+
+                if (!npcController.WasServed())
+                {
+                    Interact();
+                }
+                else
+                {
+                    Debug.Log(">>> TENTANDO REABRIR VENDA");
+
+                    recommendationUI.OpenRecommendation(
+                        npcController
+                    );
+                }
+            }
+            else
+            {
+                Debug.Log(">>> NÃO ENTROU NO IF");
+            }
         }
     }
 
-    // Abre o diálogo.
+    // Inicia o primeiro atendimento e abre o diálogo.
     private void Interact()
     {
+        npcController.StartService();
+
         dialogueUI.OpenDialogue(
             npcController.GetNPCName(),
             npcController.GetDialogues(),
