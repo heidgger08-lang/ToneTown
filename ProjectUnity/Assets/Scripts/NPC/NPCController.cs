@@ -14,8 +14,7 @@ public class NPCController : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float stoppingDistance = 0.1f;
 
-    [SerializeField] private Transform player;
-    private float playerStoppingDistance = 1.5f;
+    [SerializeField] private float playerStoppingDistance = 1.5f;
 
     [Header("Animação")]
     [SerializeField] private Animator animator;
@@ -27,6 +26,8 @@ public class NPCController : MonoBehaviour
 
     private Transform counterPoint;
     private Transform doorPoint;
+
+    private GameObject player;
 
     // Impede que o cliente seja atendido duas vezes.
     private bool wasServed = false;
@@ -40,16 +41,8 @@ public class NPCController : MonoBehaviour
             animator = GetComponent<Animator>();
         }
 
-        if (player == null)
-        {
-            GameObject playerObject =
-                GameObject.FindGameObjectWithTag("Player");
-
-            if (playerObject != null)
-            {
-                player = playerObject.transform;
-            }
-        }
+        // Procura automaticamente o objeto que possui a tag "Player".
+        player = GameObject.FindGameObjectWithTag("Player");
 
         // Começa andando.
         animator.SetBool("Walking", true);
@@ -78,7 +71,12 @@ public class NPCController : MonoBehaviour
     private void MoveToCounter()
     {
         if (PlayerEstaPerto())
+        {
+            animator.SetBool("Walking", false);
             return;
+        }
+
+        animator.SetBool("Walking", true);
 
         // Descobre a direção antes de andar.
         AtualizarDirecao(counterPoint);
@@ -109,7 +107,10 @@ public class NPCController : MonoBehaviour
     private void MoveToDoor()
     {
         if (PlayerEstaPerto())
+        {
+            animator.SetBool("Walking", false);
             return;
+        }
 
         // Descobre automaticamente para onde está indo.
         AtualizarDirecao(doorPoint);
@@ -175,7 +176,7 @@ public class NPCController : MonoBehaviour
 
         float distancia = Vector2.Distance(
             transform.position,
-            player.position
+            player.transform.position
         );
 
         return distancia <= playerStoppingDistance;
