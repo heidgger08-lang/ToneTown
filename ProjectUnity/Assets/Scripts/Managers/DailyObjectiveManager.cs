@@ -10,9 +10,6 @@ public class DailyObjectiveManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TMP_Text objectiveText;
 
-    [Header("Área de Atendimento")]
-    [SerializeField] private PlayerServiceArea playerServiceArea;
-
     [Header("Objetivo de Vendas")]
     [SerializeField] private int salesGoal = 3;
 
@@ -25,6 +22,7 @@ public class DailyObjectiveManager : MonoBehaviour
 
     private int salesCount = 0;
     private int totalMoneyEarned = 0;
+
     public static int FinalSalesCount;
     public static int FinalMoneyEarned;
 
@@ -38,20 +36,17 @@ public class DailyObjectiveManager : MonoBehaviour
         objectiveText.text = "☐ Compre um instrumento no jornal";
     }
 
-    private void Update()
+    // Chamado SOMENTE quando o jogador realmente compra um instrumento.
+    public void RegisterPurchase()
     {
         if (counterObjectiveCompleted)
             return;
 
-        if (playerServiceArea != null &&
-            playerServiceArea.isInServiceArea)
-        {
-            counterObjectiveCompleted = true;
+        counterObjectiveCompleted = true;
 
-            objectiveText.text = "✓ Compre um instrumento no jornal";
+        objectiveText.text = "✓ Compre um instrumento no jornal";
 
-            StartCoroutine(ShowFirstCustomerObjective());
-        }
+        StartCoroutine(ShowFirstCustomerObjective());
     }
 
     private IEnumerator ShowFirstCustomerObjective()
@@ -75,7 +70,6 @@ public class DailyObjectiveManager : MonoBehaviour
             $"Venda registrada: {salesCount}/{salesGoal}"
         );
 
-        // Meta atingida.
         if (salesCount >= salesGoal)
         {
             UpdateSalesText();
@@ -85,7 +79,6 @@ public class DailyObjectiveManager : MonoBehaviour
             return;
         }
 
-        // Primeira venda.
         if (firstCustomerObjective)
         {
             firstCustomerObjective = false;
@@ -95,7 +88,6 @@ public class DailyObjectiveManager : MonoBehaviour
             return;
         }
 
-        // Próximas vendas.
         UpdateSalesText();
     }
 
