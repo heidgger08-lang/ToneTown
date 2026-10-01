@@ -96,6 +96,12 @@ public class PurchaseItem : MonoBehaviour
         // Adiciona o instrumento ao estoque.
         InventoryManager.Instance.AddInstrument(instrumentData);
 
+        // Registra a conclusão do primeiro objetivo.
+        if (DailyObjectiveManager.Instance != null)
+        {
+            DailyObjectiveManager.Instance.RegisterPurchase();
+        }
+
         Debug.Log(
             $"Compra realizada: {instrumentData.instrumentName}"
         );
