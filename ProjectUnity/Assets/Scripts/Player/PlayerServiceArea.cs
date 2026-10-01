@@ -1,12 +1,12 @@
 using UnityEngine;
 
-// Verifica se o jogador est· atr·s do balc„o.
+// Verifica se o jogador est√° atr√°s do balc√£o.
 public class PlayerServiceArea : MonoBehaviour
 {
-    // Indica se o jogador est· na ·rea de atendimento.
+    // Indica se o jogador est√° na √°rea de atendimento.
     public bool isInServiceArea = false;
 
-    [Header("Prompt de interaÁ„o")]
+    [Header("Prompt de intera√ß√£o")]
     [SerializeField] private GameObject interactionPrompt;
 
     private void Start()
@@ -15,14 +15,16 @@ public class PlayerServiceArea : MonoBehaviour
             interactionPrompt.SetActive(false);
     }
 
+    private void Update()
+    {
+        AtualizarPrompt();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("ServiceArea"))
         {
             isInServiceArea = true;
-
-            if (interactionPrompt != null)
-                interactionPrompt.SetActive(true);
         }
     }
 
@@ -31,9 +33,34 @@ public class PlayerServiceArea : MonoBehaviour
         if (other.CompareTag("ServiceArea"))
         {
             isInServiceArea = false;
-
-            if (interactionPrompt != null)
-                interactionPrompt.SetActive(false);
         }
+    }
+
+    private void AtualizarPrompt()
+    {
+        if (interactionPrompt == null)
+            return;
+
+        if (!isInServiceArea)
+        {
+            interactionPrompt.SetActive(false);
+            return;
+        }
+
+        NPCController[] npcs =
+            FindObjectsByType<NPCController>(FindObjectsSortMode.None);
+
+        bool existeNPCNoBalcao = false;
+
+        foreach (NPCController npc in npcs)
+        {
+            if (npc.IsWaitingForService())
+            {
+                existeNPCNoBalcao = true;
+                break;
+            }
+        }
+
+        interactionPrompt.SetActive(existeNPCNoBalcao);
     }
 }
