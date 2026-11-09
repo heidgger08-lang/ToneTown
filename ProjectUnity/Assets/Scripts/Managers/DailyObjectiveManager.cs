@@ -1,3 +1,5 @@
+
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -6,6 +8,9 @@ using UnityEngine.SceneManagement;
 public class DailyObjectiveManager : MonoBehaviour
 {
     public static DailyObjectiveManager Instance;
+
+    // Avisará o NPCSpawner quando o primeiro instrumento for comprado.
+    public static Action OnFirstPurchaseCompleted;
 
     [Header("UI")]
     [SerializeField] private TMP_Text objectiveText;
@@ -43,6 +48,9 @@ public class DailyObjectiveManager : MonoBehaviour
             return;
 
         counterObjectiveCompleted = true;
+
+        // Libera o primeiro NPC.
+        OnFirstPurchaseCompleted?.Invoke();
 
         objectiveText.text = "✓ Compre um instrumento no jornal";
 
@@ -196,3 +204,4 @@ public class DailyObjectiveManager : MonoBehaviour
         );
     }
 }
+

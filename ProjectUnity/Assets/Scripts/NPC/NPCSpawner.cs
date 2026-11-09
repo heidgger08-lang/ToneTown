@@ -4,16 +4,10 @@ using System.Collections;
 // Controla o aparecimento dos clientes.
 public class NPCSpawner : MonoBehaviour
 {
-    // Lista de NPCs possíveis.
+    [Header("NPCs")]
     [SerializeField] private GameObject[] npcPrefabs;
-
-    // Porta da loja.
     [SerializeField] private Transform doorPoint;
-
-    // Balcão da loja.
     [SerializeField] private Transform counterPoint;
-
-    // Tempo entre clientes.
     [SerializeField] private float spawnDelay = 3f;
 
     [Header("Efeitos Sonoros")]
@@ -23,8 +17,21 @@ public class NPCSpawner : MonoBehaviour
     // Cliente atual.
     private GameObject currentNPC;
 
-    // Último cliente gerado.
+    // Ãšltimo cliente gerado.
     private int lastNPCIndex = -1;
+
+    // Controla a liberaÃ§Ã£o do primeiro cliente.
+    private bool firstInstrumentPurchased = false;
+
+    private void OnEnable()
+    {
+        DailyObjectiveManager.OnFirstPurchaseCompleted += UnlockFirstNPC;
+    }
+
+    private void OnDisable()
+    {
+        DailyObjectiveManager.OnFirstPurchaseCompleted -= UnlockFirstNPC;
+    }
 
     private void Start()
     {
@@ -35,6 +42,13 @@ public class NPCSpawner : MonoBehaviour
     {
         while (true)
         {
+            // Espera o jogador comprar o primeiro instrumento.
+            if (!firstInstrumentPurchased)
+            {
+                yield return null;
+                continue;
+            }
+
             if (currentNPC == null)
             {
                 yield return new WaitForSeconds(spawnDelay);
@@ -46,6 +60,11 @@ public class NPCSpawner : MonoBehaviour
         }
     }
 
+    private void UnlockFirstNPC()
+    {
+        firstInstrumentPurchased = true;
+    }
+
     private void SpawnNPC()
     {
         int randomIndex;
@@ -53,8 +72,7 @@ public class NPCSpawner : MonoBehaviour
         // Impede repetir o mesmo NPC.
         do
         {
-            randomIndex =
-                Random.Range(0, npcPrefabs.Length);
+            randomIndex = Random.Range(0, npcPrefabs.Length);
         }
         while (
             npcPrefabs.Length > 1 &&
@@ -69,6 +87,7 @@ public class NPCSpawner : MonoBehaviour
             Quaternion.identity
         );
 
+        // Reproduz o som da campainha.
         if (audioSource != null && doorBellSound != null)
         {
             audioSource.PlayOneShot(doorBellSound);
