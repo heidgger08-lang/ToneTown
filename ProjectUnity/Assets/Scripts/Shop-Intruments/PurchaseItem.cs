@@ -14,6 +14,10 @@ public class PurchaseItem : MonoBehaviour
     public TMP_Text priceText;
     public Button orderButton;
 
+    [Header("Efeito Sonoro")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip purchaseSound;
+
     private void Start()
     {
         UpdateUI();
@@ -96,6 +100,12 @@ public class PurchaseItem : MonoBehaviour
         // Adiciona o instrumento ao estoque.
         InventoryManager.Instance.AddInstrument(instrumentData);
 
+        // Reproduz o som da compra.
+        if (audioSource != null && purchaseSound != null)
+        {
+            audioSource.PlayOneShot(purchaseSound);
+        }
+
         // Registra a conclusão do primeiro objetivo.
         if (DailyObjectiveManager.Instance != null)
         {
@@ -105,5 +115,13 @@ public class PurchaseItem : MonoBehaviour
         Debug.Log(
             $"Compra realizada: {instrumentData.instrumentName}"
         );
+    }
+
+    private void OnDestroy()
+    {
+        if (orderButton != null)
+        {
+            orderButton.onClick.RemoveListener(OnOrderClicked);
+        }
     }
 }

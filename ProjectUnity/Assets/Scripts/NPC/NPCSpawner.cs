@@ -16,6 +16,10 @@ public class NPCSpawner : MonoBehaviour
     // Tempo entre clientes.
     [SerializeField] private float spawnDelay = 3f;
 
+    [Header("Efeitos Sonoros")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip doorBellSound;
+
     // Cliente atual.
     private GameObject currentNPC;
 
@@ -64,6 +68,11 @@ public class NPCSpawner : MonoBehaviour
             doorPoint.position,
             Quaternion.identity
         );
+
+        if (audioSource != null && doorBellSound != null)
+        {
+            audioSource.PlayOneShot(doorBellSound);
+        }
 
         // Configura os pontos do NPC.
         NPCController npcController =
